@@ -1,0 +1,47 @@
+project_name: boxconfidence
+dist: ./build
+before:
+  hooks:
+    - go mod download
+    - go mod tidy
+    - go generate ./...
+    - rm -rf ./docs
+    - swag init -d ./cmd/  -o ./docs
+builds:
+  - id: tingshu-server
+    binary: tingshu-server
+    dir: ./cmd
+    main: main.go
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+    hooks:
+      post:
+        - cp -rf ./config {{ dir .Path }}
+archives:
+  - id: default
+    builds:
+      - tingshu-server
+    format: binary
+    wrap_in_directory: false
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+gitlab_urls:
+release:
+  gitlab:
+source:
+  enabled: false
+  name_template: '{{ .ProjectName }}-{{ .Version }}'
+  format: 'tar.gz'

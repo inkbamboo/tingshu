@@ -1,0 +1,47 @@
+# compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+*.cov
+
+# Folders
+_obj
+_test
+
+# IntelliJ auto generated files
+.idea
+*.iml
+
+# MacOS rendering files
+.DS_store
+
+#Redis RDB File
+*.rdb
+
+#Redis Log File
+*.log
+
+#Redis AOF File
+*.aof
+
+#日志文件
+/logs/
+
+/node_modules/
+
+#编译文件
+/build/
+
+/vendor/
+
+/cache/
+/log/
+cache/
+
+# swagger
+docs/*
+
+config.local.yaml
+
+# 忽略 swagger 文档
+# packages/*/docs

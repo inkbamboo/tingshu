@@ -32,17 +32,13 @@ func (c BookController) Setup() {
 // @Tags 书籍
 // @Accept json
 // @Produce  json
-// @Param body query dto.BaseIn  true  "请求结构"
 // @Success  200  {object}  ecode.Response{data=dto.GetTabListOut}
 // @Router /v1/book/tabList [get]
 func (c BookController) GetTabList(ctx echo.Context) (err error) {
-	req := &dto.BaseIn{}
 	res := &dto.GetTabListOut{}
-	if err = ctx.Bind(req); err != nil {
-		return err
-	}
+	channel := ctx.Get("channel").(string)
 	var tingShuHandler services.TingShuInterface
-	if tingShuHandler, err = services.NewInstance(req.Channel); err != nil {
+	if tingShuHandler, err = services.NewInstance(channel); err != nil {
 		return
 	}
 	res.List, _ = tingShuHandler.GetTabList()
@@ -65,8 +61,9 @@ func (c BookController) GetBookListByTab(ctx echo.Context) (err error) {
 	if err = ctx.Bind(req); err != nil {
 		return err
 	}
+	channel := ctx.Get("channel").(string)
 	var tingShuHandler services.TingShuInterface
-	if tingShuHandler, err = services.NewInstance(req.Channel); err != nil {
+	if tingShuHandler, err = services.NewInstance(channel); err != nil {
 		return
 	}
 	if res.List, res.TotalCount, err = tingShuHandler.GetBookListByTab(req.Tab, req.Page); err != nil {
@@ -92,7 +89,8 @@ func (c BookController) Search(ctx echo.Context) (err error) {
 		return err
 	}
 	var tingShuHandler services.TingShuInterface
-	if tingShuHandler, err = services.NewInstance(req.Channel); err != nil {
+	channel := ctx.Get("channel").(string)
+	if tingShuHandler, err = services.NewInstance(channel); err != nil {
 		return
 	}
 	if res.List, res.TotalCount, err = tingShuHandler.Search(req.Keyword, req.Page); err != nil {
@@ -108,17 +106,13 @@ func (c BookController) Search(ctx echo.Context) (err error) {
 // @Tags 书籍
 // @Accept json
 // @Produce  json
-// @Param body query dto.BaseIn  true  "请求结构"
 // @Success  200  {object}  ecode.Response{data=dto.GetBookIndexListOut}
 // @Router /v1/book/indexList [get]
 func (c BookController) GetBookIndexList(ctx echo.Context) (err error) {
-	req := &dto.BaseIn{}
 	res := &dto.GetBookIndexListOut{}
-	if err = ctx.Bind(req); err != nil {
-		return err
-	}
+	channel := ctx.Get("channel").(string)
 	var tingShuHandler services.TingShuInterface
-	if tingShuHandler, err = services.NewInstance(req.Channel); err != nil {
+	if tingShuHandler, err = services.NewInstance(channel); err != nil {
 		return
 	}
 	if res.TabList, res.RecommendList, res.NewList, err = tingShuHandler.GetBookIndexList(); err != nil {
@@ -144,7 +138,8 @@ func (c BookController) GetBookInfo(ctx echo.Context) (err error) {
 		return err
 	}
 	var tingShuHandler services.TingShuInterface
-	if tingShuHandler, err = services.NewInstance(req.Channel); err != nil {
+	channel := ctx.Get("channel").(string)
+	if tingShuHandler, err = services.NewInstance(channel); err != nil {
 		return
 	}
 	if res.BookInfo, res.ChapterList, res.ChapterCount, err = tingShuHandler.GetBookInfo(req.Tab, req.BookId); err != nil {
@@ -168,7 +163,8 @@ func (c BookController) BookPlay(ctx echo.Context) (err error) {
 		return err
 	}
 	var tingShuHandler services.TingShuInterface
-	if tingShuHandler, err = services.NewInstance(req.Channel); err != nil {
+	channel := ctx.Get("channel").(string)
+	if tingShuHandler, err = services.NewInstance(channel); err != nil {
 		return
 	}
 	return tingShuHandler.BookPlay(ctx, req.BookId, req.Chapter)

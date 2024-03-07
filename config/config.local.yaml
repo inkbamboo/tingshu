@@ -3,5 +3,5 @@ swaggeApiHost: "127.0.0.1:32001"
 swaggeApi: true
 autoMigrate: false
 baseUrl:
-  nianYin: "https://nianyin.com/"
-  shuYin: "https://www.shuyinfm.com/"
+  nianYin: "https://nianyin.com"
+  shuYin: "https://www.shuyinfm.com"

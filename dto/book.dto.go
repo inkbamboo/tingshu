@@ -1,8 +1,5 @@
 package dto
 
-type BaseIn struct {
-	Channel string `json:"channel" form:"channel" binding:"required"` // 渠道
-}
 type BookItem struct {
 	BookId     string `json:"book_id"`     // 链接地址
 	Name       string `json:"name"`        // 名称
@@ -20,7 +17,6 @@ type ChapterItem struct {
 	ChapterId int    `json:"chapter_id"`
 }
 type GetBookListByTabIn struct {
-	BaseIn
 	Page int64  `json:"page" form:"page" binding:"required"`
 	Tab  string `json:"tab" form:"tab" binding:"required"` // 名称
 }
@@ -30,7 +26,6 @@ type GetBookListByTabOut struct {
 	TotalCount int64       `json:"total_count"` // 名称
 }
 type SearchIn struct {
-	BaseIn
 	Page    int64  `json:"page" form:"page" binding:"required"`
 	Keyword string `json:"keyword" form:"keyword" binding:"required"` // 名称
 }
@@ -45,7 +40,6 @@ type GetBookIndexListOut struct {
 	NewList       []*BookItem `json:"new_list"`       // 链接地址
 }
 type GetBookInfoIn struct {
-	BaseIn
 	Tab    string `json:"tab" form:"tab" binding:"required"`         // 名称
 	BookId string `json:"book_id" form:"book_id" binding:"required"` // 名称
 }
@@ -55,7 +49,6 @@ type GetBookInfoOut struct {
 	ChapterCount int64          `json:"chapter_count"`
 }
 type BookPlayIn struct {
-	BaseIn
 	Chapter int64  `json:"chapter" form:"chapter" binding:"required"` // 名称
 	BookId  string `json:"book_id" form:"book_id" binding:"required"` // 名称
 }

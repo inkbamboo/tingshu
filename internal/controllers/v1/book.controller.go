@@ -36,8 +36,8 @@ func (c BookController) Setup() {
 // @Router /v1/book/tabList [get]
 func (c BookController) GetTabList(ctx echo.Context) (err error) {
 	res := &dto.GetTabListOut{}
-	channel := ctx.Get("channel").(string)
 	var tingShuHandler services.TingShuInterface
+	channel := ctx.Get("channel").(string)
 	if tingShuHandler, err = services.NewInstance(channel); err != nil {
 		return
 	}
@@ -61,8 +61,8 @@ func (c BookController) GetBookListByTab(ctx echo.Context) (err error) {
 	if err = ctx.Bind(req); err != nil {
 		return err
 	}
-	channel := ctx.Get("channel").(string)
 	var tingShuHandler services.TingShuInterface
+	channel := ctx.Get("channel").(string)
 	if tingShuHandler, err = services.NewInstance(channel); err != nil {
 		return
 	}
@@ -110,8 +110,8 @@ func (c BookController) Search(ctx echo.Context) (err error) {
 // @Router /v1/book/indexList [get]
 func (c BookController) GetBookIndexList(ctx echo.Context) (err error) {
 	res := &dto.GetBookIndexListOut{}
-	channel := ctx.Get("channel").(string)
 	var tingShuHandler services.TingShuInterface
+	channel := ctx.Get("channel").(string)
 	if tingShuHandler, err = services.NewInstance(channel); err != nil {
 		return
 	}

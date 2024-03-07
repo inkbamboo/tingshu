@@ -64,6 +64,7 @@ func (s *NianYinService) GetBookListByTab(tab string, index int64) (bookList []*
 	var resp *resty.Response
 	resp, err = resty.New().R().Get(fmt.Sprintf(`%s%sindex%d.html`, ripple.GetConfig().GetString("baseUrl.nianYin"), tab, index))
 	if err != nil {
+		fmt.Printf("GetBookListByTab with err:%+v\n", err)
 		return
 	}
 	bookList, totalCount = s.getBookListFromHtml(string(resp.Body()))

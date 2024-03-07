@@ -26,8 +26,10 @@ func RouteAPI() {
 	registerXcxAPI(echoMux)
 	registerSwagger(echoMux)
 }
+
 func registerXcxAPI(echoMux *echo.Echo) {
 	v1Group := echoMux.Group("/v1")
+	v1Group.Use(middlewares.Channel())
 	book := v1.NewBookController(v1Group.Group("/book"))
 	book.Setup()
 }

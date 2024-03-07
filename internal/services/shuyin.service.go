@@ -131,6 +131,7 @@ func (s *ShuYinService) GetBookIndexList() (tabList []*dto.TabItem, recommendLis
 	var resp *resty.Response
 	resp, err = resty.New().R().Get(fmt.Sprintf(`%s%s`, ripple.GetConfig().GetString("baseUrl.shuYin"), "/yousheng/"))
 	if err != nil {
+		fmt.Printf("****************%v\n", err)
 		return
 	}
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(string(resp.Body())))

@@ -5,3 +5,4 @@ autoMigrate: false
 baseUrl:
   nianYin: "https://m.nianyin.com"
   shuYin: "https://www.shuyinfm.com"
+  ting: "https://www.ting2.com"

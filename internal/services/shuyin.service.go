@@ -8,6 +8,7 @@ import (
 	"github.com/inkbamboo/tingshu/dto"
 	"github.com/labstack/echo/v4"
 	"github.com/samber/lo"
+	"github.com/spf13/cast"
 	"github.com/tidwall/gjson"
 	"strconv"
 	"strings"
@@ -187,7 +188,7 @@ func (s *ShuYinService) GetBookInfo(tab, bookId string) (bookInfo *dto.BookItem,
 	doc.Find(".compress").Find("a").Each(func(i int, item *goquery.Selection) {
 		chapterList = append(chapterList, &dto.ChapterItem{
 			Name:      item.Text(),
-			ChapterId: i + 1,
+			ChapterId: cast.ToString(i + 1),
 		})
 	})
 	chapterCount = int64(len(chapterList))
@@ -196,11 +197,11 @@ func (s *ShuYinService) GetBookInfo(tab, bookId string) (bookInfo *dto.BookItem,
 	}
 	return
 }
-func (s *ShuYinService) BookPlay(ctx echo.Context, bookId string, chapter int64) (err error) {
+func (s *ShuYinService) BookPlay(ctx echo.Context, bookId string, chapter string) (err error) {
 	var resp *resty.Response
 	resp, err = resty.New().R().SetHeader("content-type", "application/x-www-form-urlencoded; charset=UTF-8").SetFormData(map[string]string{
 		"bookId": bookId,
-		"page":   fmt.Sprintf("%d", chapter),
+		"page":   chapter,
 	}).Post(fmt.Sprintf(`%s/?s=api-getneoplay`, ripple.GetConfig().GetString("baseUrl.shuYin")))
 	if err != nil {
 		return

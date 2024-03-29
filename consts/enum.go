@@ -14,6 +14,7 @@ type tingShuTypeInstanceJsonDescriptionModel struct {
 var tingShuTypeInstance = TingShuTypeEnum{
 	NianYin: "nianYin",
 	ShuYin:  "shuYin",
+	Ting:    "ting",
 }
 
 // TingShuType is the enum that instances should be created from
@@ -26,6 +27,7 @@ type TingShuType struct {
 // Enum instances
 var NianYin = TingShuType{name: "nianYin", value: "NianYin", description: "念音网"}
 var ShuYin = TingShuType{name: "shuYin", value: "ShuYin", description: "书音网"}
+var Ting = TingShuType{name: "ting", value: "Ting", description: "听书网"}
 
 // NewTingShuType generates a new TingShuType from the given display value (name)
 func NewTingShuType(value string) (TingShuType, error) {
@@ -34,6 +36,8 @@ func NewTingShuType(value string) (TingShuType, error) {
 		return NianYin, nil
 	case "shuYin":
 		return ShuYin, nil
+	case "ting":
+		return Ting, nil
 	default:
 		return TingShuType{}, errors.New(
 			fmt.Sprintf("'%s' is not a valid value for type", value))
@@ -47,6 +51,8 @@ func (g TingShuType) Name() string {
 		return NianYin.name
 	case ShuYin:
 		return ShuYin.name
+	case Ting:
+		return Ting.name
 	default:
 		return ""
 	}
@@ -69,6 +75,8 @@ func (g TingShuType) Description() string {
 		return "念音网"
 	case ShuYin:
 		return "书音网"
+	case Ting:
+		return "听书网"
 	default:
 		return ""
 	}
@@ -79,6 +87,7 @@ func TingShuTypeNames() []string {
 	return []string{
 		"nianYin",
 		"shuYin",
+		"ting",
 	}
 }
 
@@ -87,6 +96,7 @@ func TingShuTypeValues() []TingShuType {
 	return []TingShuType{
 		NianYin,
 		ShuYin,
+		Ting,
 	}
 }
 

@@ -5,4 +5,5 @@ package consts
 type TingShuTypeEnum struct {
 	NianYin string `enum:"nianYin,念音网"`
 	ShuYin  string `enum:"shuYin,书音网"`
+	Ting    string `enum:"ting,听书网"`
 }

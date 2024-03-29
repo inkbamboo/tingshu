@@ -14,7 +14,7 @@ type BookItem struct {
 }
 type ChapterItem struct {
 	Name      string `json:"name"`
-	ChapterId int    `json:"chapter_id"`
+	ChapterId string `json:"chapter_id"`
 }
 type GetBookListByTabIn struct {
 	Page int64  `json:"page" form:"page" binding:"required"`
@@ -49,7 +49,7 @@ type GetBookInfoOut struct {
 	ChapterCount int64          `json:"chapter_count"`
 }
 type BookPlayIn struct {
-	Chapter int64  `json:"chapter" form:"chapter" binding:"required"` // 名称
+	Chapter string `json:"chapter" form:"chapter" binding:"required"` // 名称
 	BookId  string `json:"book_id" form:"book_id" binding:"required"` // 名称
 }
 type BookPlayOut struct {

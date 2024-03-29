@@ -7,6 +7,7 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/inkbamboo/tingshu/dto"
 	"github.com/labstack/echo/v4"
+	"github.com/spf13/cast"
 	"github.com/tidwall/gjson"
 	"regexp"
 	"strconv"
@@ -183,7 +184,7 @@ func (s *NianYinService) GetBookInfo(tab, bookId string) (bookInfo *dto.BookItem
 	doc.Find(".plist").Find("a").Each(func(i int, item *goquery.Selection) {
 		chapterList = append(chapterList, &dto.ChapterItem{
 			Name:      item.Text(),
-			ChapterId: i + 1,
+			ChapterId: cast.ToString(i + 1),
 		})
 	})
 	chapterCount = int64(len(chapterList))
@@ -192,11 +193,11 @@ func (s *NianYinService) GetBookInfo(tab, bookId string) (bookInfo *dto.BookItem
 	//}
 	return
 }
-func (s *NianYinService) BookPlay(ctx echo.Context, bookId string, chapter int64) (err error) {
+func (s *NianYinService) BookPlay(ctx echo.Context, bookId string, chapter string) (err error) {
 	var resp *resty.Response
 	resp, err = resty.New().R().SetHeader("content-type", "application/x-www-form-urlencoded; charset=UTF-8").SetFormData(map[string]string{
 		"bookId": bookId,
-		"page":   fmt.Sprintf("%d", chapter),
+		"page":   chapter,
 	}).Post(fmt.Sprintf(`%s/?s=api-getneoplay`, ripple.GetConfig().GetString("baseUrl.nianYin")))
 	if err != nil {
 		return
